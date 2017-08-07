@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.awt.Color;
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 class Notepad extends JFrame{
@@ -150,19 +154,22 @@ class Notepad extends JFrame{
 
 			if(fc.showOpenDialog(Notepad.this)==JFileChooser.APPROVE_OPTION){
 
+			
 				String path = fc.getSelectedFile().getPath();
-				ta.setText(path);
+				try{
+				FileInputStream fi =new FileInputStream(path);
+								
+				int size=fi.available();
+				byte[] str = new byte[size];
+				fi.read(str);
+				ta.setText(new String(str));
+				fi.close();
+				}catch(IOException e){}
 
 			}
 		}
 	}
 
-	class MyNewListener implements ActionListener{
-
-		public void actionPerformed(ActionEvent ev){
-			ta.setText("");
-		}
-	}
 
 
 
@@ -173,7 +180,13 @@ class Notepad extends JFrame{
 		JFileChooser fc = new JFileChooser();
 			if(fc.showSaveDialog(Notepad.this)==JFileChooser.APPROVE_OPTION){
 				String path = fc.getSelectedFile().getPath();
-				ta.setText(path);
+				try{
+				FileOutputStream fi2 = new FileOutputStream(path);
+				byte[] b = ta.getText().getBytes();
+				fi2.write(b);
+				fi2.close();
+				}catch(IOException e){}
+				
 			}	
 		
 		}		
@@ -197,6 +210,14 @@ class Notepad extends JFrame{
 			
 		}
 	
+	}
+
+	
+	class MyNewListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent ev){
+			ta.setText("");
+		}
 	}
 
 
