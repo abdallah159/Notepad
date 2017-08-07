@@ -10,5 +10,5 @@ and then run by main class using "java NotepadApp"
 
 =============================================================
 
-this project is done by Abdallah Mohammed  studenting at suez canal Uneveristy at faculty of computers and informatics science.
+this project is done by Abdallah Mohammed  student at suez canal Uneveristy at faculty of computers and informatics science.
 hope you like it , and thanks :) ..
