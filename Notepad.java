@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.awt.Color;
+import java.awt.*;
 
 
 class Notepad extends JFrame{
@@ -18,6 +20,7 @@ class Notepad extends JFrame{
 	JMenu fileMenu;
 	JMenu editMenu;
 	JMenu aboutMenu;
+	JMenu formate;
 
 	JMenuItem openItem;
 	JMenuItem newItem;
@@ -31,10 +34,14 @@ class Notepad extends JFrame{
 	JMenuItem selectall;
 
 	JMenuItem about;
+	JMenuItem color;
+	JMenuItem font;
 	String clipText =new String("");
 
 
 	String cpd;
+
+	
 
 	public Notepad(String title){
 	
@@ -44,6 +51,7 @@ class Notepad extends JFrame{
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
 		aboutMenu = new JMenu("About");
+		formate = new JMenu("Format");
 
 		openItem = new JMenuItem("Open",'o');
 		newItem = new JMenuItem("New",'n');
@@ -57,12 +65,17 @@ class Notepad extends JFrame{
 		selectall = new JMenuItem("Select all",'a');
 
 		about= new JMenuItem("About Us");
+		color=new JMenuItem("Color");
+		font = new JMenuItem("Font");
 		
 		setJMenuBar(mb);
 		add(ta);
 		mb.add(fileMenu);
 		mb.add(editMenu);
+		mb.add(formate);
 		mb.add(aboutMenu);
+
+	
 	
 		fileMenu.add(newItem);
 		fileMenu.add(openItem);
@@ -77,6 +90,8 @@ class Notepad extends JFrame{
 
 		aboutMenu.add(about);
 
+		formate.add(color);
+		formate.add(font);
 		
 
 		openItem.addActionListener(new MyOpenListener());
@@ -91,9 +106,30 @@ class Notepad extends JFrame{
 		delete.addActionListener(new MyDeleteListener());
 
 		about.addActionListener(new MyAboutListener());
+		
+		color.addActionListener(new MyColorListener());
+		font.addActionListener(new MyFontListener());
+
+
 
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		
+		copy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));	
+		openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+		cut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+		paste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+		selectall.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+		delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
+		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+
+
+
+
+		
 
 	}
 
@@ -101,6 +137,9 @@ class Notepad extends JFrame{
 	public Notepad(){
 		this("Untitled");
 	}
+
+
+	
 
 
 	class MyOpenListener implements ActionListener{
@@ -139,6 +178,25 @@ class Notepad extends JFrame{
 		
 		}		
 		
+	}
+	
+	class MyColorListener implements ActionListener{
+		public void actionPerformed(ActionEvent ev){
+		
+			JColorChooser ch= new JColorChooser();
+			Color co=ch.showDialog(ta,"Color Chooser",Color.BLACK);
+			ta.setForeground(co);
+						
+
+		}
+	}
+
+	class MyFontListener implements ActionListener{
+		public void actionPerformed(ActionEvent ev){
+			ta.setFont(new Font("Serif",Font.PLAIN,20));
+			
+		}
+	
 	}
 
 
@@ -197,9 +255,10 @@ class Notepad extends JFrame{
 
 
 	class MyAboutListener implements ActionListener{
-		public void actionPerformed(ActionEvent ev){			 				JOptionPane.showMessageDialog(null, "This Notepad is Fully Developed By Abdallah Mohammed and all Credtis..");
+		public void actionPerformed(ActionEvent ev){
+			JOptionPane.showMessageDialog(null, "This Notepad is Fully Developed By Abdallah Mohammed and all Credtis..");
 
-	}
+		}
 
 	}
 }
